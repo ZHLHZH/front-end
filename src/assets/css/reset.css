@@ -1,0 +1,68 @@
+body,p,h1,h2,h3,h4,ul{
+    margin: 0;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+img{
+    border: none;
+    vertical-align: middle;
+}
+
+a{
+    text-decoration: none;
+    color: #3c3c3c;
+}
+
+i{
+    font-style: normal;
+}
+
+input,button{
+    margin: 0;
+    padding: 0;
+}
+
+button{
+    outline: none;
+}
+
+/*这是网站设置字体的初始化*/
+body{
+    font: 12px/1.5 tahoma,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif;
+    color: #3c3c3c;
+    background-color: #f4f4f4;
+}
+
+.celarfix:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.fl{
+    float: left;
+}
+
+.fr{
+    float: right;
+}
+
+.layer{
+    width: 1190px;
+    margin: 0 auto;
+}
+
+/*字体不同，默认行高不同 所以行高需要重置     \5b8b\4f53是‘宋体’的union编码*/
+
+table{
+    border-collapse: collapse;
+}
+
+th,td{
+    padding: 0;
+}

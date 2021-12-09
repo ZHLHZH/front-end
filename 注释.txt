@@ -1,0 +1,20 @@
+vue.config.js: 用于配置vue的设置， 比如关闭 eslint的校验等，  这里没关闭
+
+jsconfig.json: 用于配置别名 @提示 [@代表的事src文件夹，这样在文件过多是，找文件会方便很多]
+
+less样式要安装以来， 并且在 style中表明 lang=less
+npm install -save less less-loader@5
+
+路由相关： 安装 vue-router
+-component中放置全局的非路由组件 （全局共用）
+-pages 中放置路由组件
+
+路由跳转：
+声明式导航： router-link  （to参数）
+编程式导航： push 与 replace
+路由传递参数：
+    字符串形式  this.$router.push(/..../ + key?k= value)
+    模板字符串：  ··
+    对象形式： this.$router.push({name:"...",params:{keyword:}, query:{ ...}})  (params不能与path一起使用)
+
+
