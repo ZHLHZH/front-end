@@ -6,6 +6,10 @@ import Biaobai from '@/pages/Wall/Biaobai'
 import Jiaoyi from '@/pages/Wall/Jiaoyi'
 import Xuyuan from '@/pages/Wall/Xuyuan'
 import Friend from '@/pages/Friend/Friend'
+import Login from '@/pages/Login/Login'
+import Register from '@/pages/Login/Register'
+import Setting from '@/pages/Login/Setting'
+import Info from '@/pages/Login/Info'
 
 
 Vue.use(VueRouter)
@@ -23,6 +27,11 @@ const router = new VueRouter({
             ]
         },
         { path: '/friend', component: Friend },
+        { path: '/login', component: Login },
+        { path: '/register', component: Register },
+        { path: '/setting', component: Setting },
+        { path: '/info', component: Info }
+
     ]
 })
 

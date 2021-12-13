@@ -59,6 +59,22 @@
                 <li class="ls1">
                     <a href="">周边</a>
                 </li>
+                <li class="ls1 lg">
+                    <router-link to="/login">登录</router-link>
+                    <span>&nbsp;/&nbsp;</span>
+                    <router-link to="/register">注册</router-link>
+                </li>
+                <li class="ls1" @mouseenter="lsView6=true" @mouseleave="lsView6=false">
+                    <img style="width: 18px; border-radius:50%; background-color: white"
+                         src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" alt="#">
+                    <div class="secondmune" v-show="lsView6" >
+                        <ul>
+                            <li><router-link to="/info">消息</router-link></li>
+                            <li><router-link to="/setting">账户设置</router-link></li>
+                            <li><a href="/">退出</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -74,6 +90,7 @@
                 lsView3: false,
                 lsView4: false,
                 lsView5: false,
+                lsView6: true
             }
         },
         methods: {
@@ -114,6 +131,15 @@
         }
         a:hover {
             color: lightsalmon;
+        }
+        .lg {
+            a {
+                font-size: 14px;
+                color: #3e3e3e;
+            }
+            a:hover{
+                color: red;
+            }
         }
     }
 

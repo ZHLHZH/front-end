@@ -1,0 +1,30 @@
+/*爱心的样式*/
+.love2{
+    height: 30px;
+    width: 30px;
+    /*background-color: #55a532;*/
+    margin: 10px 10px;
+    position: relative;
+}
+.love2::before{
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 30px;
+    background-color: hotpink;
+    border-radius: 10px 10px 0 0;
+    transform-origin: 0 100%;
+    transform: rotate(-45deg);
+    left: 20px;
+}
+.love2::after{
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 30px;
+    background-color: hotpink;
+    border-radius: 10px 10px 0 0;
+    transform-origin: 100% 100%;
+    transform: rotate(45deg);
+    left: 0;
+}
