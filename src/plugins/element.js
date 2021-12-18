@@ -4,7 +4,7 @@ import {
      Image, Carousel, CarouselItem, Tabs, TabPane,
     Rate, Form, FormItem, Input, Radio, RadioGroup,
     Select, Option, CheckboxGroup, Checkbox,Upload,
-    Dialog
+    Dialog, Row, Col, Table, TableColumn, Pagination
 } from 'element-ui'
 // import { Form, FormItem } from 'element-ui'
 // import { Input } from 'element-ui'
@@ -28,6 +28,11 @@ Vue.use(Checkbox)
 Vue.use(CheckboxGroup)
 Vue.use(Upload)
 Vue.use(Dialog)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Pagination)
 
 
 Vue.prototype.$message = Message

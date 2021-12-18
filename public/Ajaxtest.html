@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .result{
+            width: 200px;
+            height: 100px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<button>点击发送结果</button>
+<div class="result"></div>
+
+<script>
+    const btm = document.getElementsByTagName('button')[0];
+    const divNode = document.getElementsByTagName('div')[0];
+    console.log(btm);
+    const data = {
+        userName: 'zhl12',
+        passWord:'123'
+    }
+    btm.onclick = function (e) {
+        //创建对象
+        e.preventDefault();
+        const xhr = new XMLHttpRequest();
+        //2.初始化 设置请求方法和 url
+        xhr.open('post', 'http://120.76.47.219:8080/register',true);
+        xhr.setRequestHeader("Content-Type","application/json")
+        //3.fasong
+        xhr.send(JSON.stringify(data));
+        //.事件绑定  处理服务端返回的结果
+        //readystate 是xhr对象中的属性，表示状态0~4 5个状态 4表示全部完成
+        // change  改变
+        xhr.onreadystatechange = function () {
+            //判断（服务端返回了所有结果 ==4
+            // 2xx  成功
+            if(xhr.readyState === 4){
+                if(xhr.status >= 200 && xhr.status <= 300){
+                    //处理结果   行 头  空体  体
+                    //1. 相应行
+                    console.log(xhr.status);//状态码;
+                    console.log(xhr.statusText);//状态字符串
+                    console.log(xhr.getAllResponseHeaders());//响应头
+                    console.log(xhr.response);//相应体
+                    divNode.innerHTML = xhr.response;
+                }
+            }
+        }
+    }
+</script>
+
+
+<!--// HTTP 通信-->
+<!--···-->
+<!--请求报文：-->
+<!--参数与格式：-->
+<!--行         POST/Get   /？ie=utf-8    HTTP/1.1-->
+<!--头         Host： baidu.com-->
+<!--          Cookie：name=0.0-->
+<!--        ······-->
+<!--空行-->
+<!--体    get为空， post有内容： username=admin%password=admin-->
+<!--···-->
+
+<!--···-->
+<!--响应报文：-->
+
+<!--行   HTTP/1.1    200   OK-->
+<!--头   Content-type：text/···-->
+<!--     Content-length···-->
+<!--    content-encoding：gzip-->
+<!--    ···-->
+<!--空行-->
+<!--体    html内容-->
+<!--···-->
+
+
+</body>
+</html>

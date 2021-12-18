@@ -5,17 +5,17 @@
         </div>
         <h1>注册</h1>
         <el-form :model="loginForm"  :rules="logeRules" ref="loginForm" >
-            <el-form-item  prop="username">
-                <el-input type="text" v-model="loginForm.username" placeholder="用户名"></el-input>
+            <el-form-item  prop="userName">
+                <el-input type="text" v-model="loginForm.userName" placeholder="用户名"></el-input>
             </el-form-item>
-            <el-form-item  prop="password">
-                <el-input type="password" v-model="loginForm.password" placeholder="密码"></el-input>
+            <el-form-item  prop="passWord">
+                <el-input type="password" v-model="loginForm.passWord" placeholder="密码"></el-input>
             </el-form-item>
 
             <el-form-item label="性别：">
                 <el-radio-group v-model="loginForm.sex" size="medium">
-                    <el-radio label="male">男</el-radio>
-                    <el-radio label="female">女</el-radio>
+                    <el-radio label="0">男</el-radio>
+                    <el-radio label="1">女</el-radio>
                 </el-radio-group>
             </el-form-item>
 
@@ -38,16 +38,16 @@
         data () {
             return {
                 loginForm : {
-                    username: '',
-                    password: '',
-                    sex: 'male'
+                    userName: '',
+                    passWord: '',
+                    sex: "0"
                 },
                 logeRules: {
-                    username: [
+                    userName: [
                         { required: true, message: '请输入用户名', trigger: 'blur' },
                         { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
                     ],
-                    password: [
+                    passWord: [
                         { required: true, message: '请输入密码', trigger: 'blur' },
                         { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
                     ]
@@ -55,13 +55,19 @@
             }
         },
         methods: {
-            submitForm () {
-                console.log('submit')
+            async submitForm () {
+                // const { data: res } = await this.$http.post('/register', { "userName":`${this.loginForm.userName}`, "passWord": 'xxx'}  )
+                // const formData = { "userName":`${this.loginForm.userName}`, "passWord": 'xxx'}
+                // console.log(JSON.stringify(this.loginForm))
+                const { data: res } = await this.$http.post('/register', JSON.stringify(this.loginForm))
+                if (res.code !== 200 ) return this.$message.error(res.message)
+                this.$message.success('注册成功！')
+                console.log(res)
             },
             resetForm () {
                 this.loginForm.username = ''
                 this.loginForm.password = ''
-                this.loginForm.sex =  'male'
+                this.loginForm.sex =  0
             }
 
         }
