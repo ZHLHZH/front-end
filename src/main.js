@@ -6,6 +6,7 @@ import './assets/css/reset.css'
 import './assets/css/globle.css'
 import './plugins/element'
 import axios from 'axios'
+import store from "./store";
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = 'http://120.76.47.219:8080/'
@@ -14,5 +15,6 @@ Vue.prototype.$http = axios
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
