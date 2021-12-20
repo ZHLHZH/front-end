@@ -59,10 +59,10 @@
             <el-tab-pane label="私信">
                 <el-card class="info infomation celarfix">
                         <div class="area">
-                            <UserList></UserList>
+                            <UserList :getcheckinfo = 'getcheckinfo'></UserList>
                         </div>
-                        <div class="area">
-                            <MsgList></MsgList>
+                        <div class="area" v-show="hasinfo">
+                            <MsgList :sessionInfoList = 'sessionInfoList' ></MsgList>
                         </div>
                 </el-card>
             </el-tab-pane>
@@ -93,7 +93,9 @@
                         wall_type: '表白墙',
                         status: '审核中',
                     }
-                ]
+                ],
+                hasinfo: false,
+                sessionInfoList: new Map()
             }
         },
         methods: {
@@ -109,6 +111,19 @@
                 this.queryParams.pagenum = newPage
                 this.getUserList()
             },
+            getcheckinfo (vlaue) {
+                this.hasinfo = vlaue
+            },
+            saveusermsg (data) {
+                this.sessionInfoList.set(data[0],data[1])
+                // console.log(this.sessionInfoList)
+            }
+        },
+        mounted() {
+            this.$bus.$on('saveUserMsg', this.saveusermsg)
+        },
+        beforeDestroy() {
+            this.$bus.$off('saveUserMsg')
         }
 
     }

@@ -13,7 +13,7 @@
                     </div>
                     <div class="msg">
                         <p class="msgs">{{useritem.msgList[useritem.msgList.length-1].content}}</p>
-                        <b class="noread">2</b>
+                        <b class="noread" v-show="useritem.newmsg">{{useritem.newmsg}}</b>
                     </div>
                 </div>
             </div>
@@ -40,6 +40,7 @@
     import { mapState } from 'vuex'
     export default {
         name: 'UserList',
+        props: ['getcheckinfo'],
         data () {
             return {
                 userlist2: [
@@ -55,6 +56,9 @@
         },
         methods: {
             chooseUser (e) {
+                // 当触发点击选择，改变info中 msglist的状态为可视
+                this.getcheckinfo(true)
+                // 点击用户列表，选择用户列表的当前node， 将挡墙node的class改变为选中状态
                 let node
                 if (e.target.className === 'img-box' || e.target.className === 'ditals') {
                     node = e.target.parentNode
@@ -64,10 +68,14 @@
                 } else if (e.target.className === 'name' || e.target.className === 'time'
                     || e.target.className === 'msgs' || e.target.className === 'noread') {
                     node = e.target.parentNode.parentNode.parentNode
+                } else if (e.target.className === 'info-block') {
+                    node = e.target
                 } else {
                     console.log(e.target.className)
                     return
                 }
+                // 用时间总线触发兄弟组件的内容，清空输入栏中的信息。
+                this.$bus.$emit('clearMsg')
                 // console.log(node)
                 const usernode = document.getElementsByClassName('info-block');
                 for(let user of usernode) {
@@ -77,6 +85,8 @@
                 const username = node.children[1].children[0].children[0].innerText
                 this.$store.dispatch('info/chooseruser', username)
                 // console.log(node.children[1].children[0].children[0].innerText)
+                // 总线触发，获得消息框输入内容
+                this.$bus.$emit('getUserInputMsg')
             }
         }
     }

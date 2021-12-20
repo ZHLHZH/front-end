@@ -15,8 +15,11 @@ const state = {
                 { from: 1, content: 'wtat how are you2 ok', time: '16:16' }
             ]},
     ],
-    msglist: [
-    ]
+    currentlist: {
+        username: '',
+        newmsg: 0,
+        msglist: [],
+    },
 }
 
 const actions = {
@@ -26,18 +29,21 @@ const actions = {
         const mins = date.getMinutes()
         const infodata = {
             from: 0,
-            content: value,
+            content: value[0],
             time: `${hour}:${mins}`
         }
-        context.commit('SendInfo',infodata)
+        context.commit('SendInfo',[infodata, value[1]])
     },
     chooseruser (context, value) {
         // console.log(state.userlist)
-        console.log(context,value)
+        // console.log(context,value)
+
         const userls = state.userlist.filter( (item) => {
             return item.name === value
         })
-        console.log(userls)
+
+        // console.log(userls)
+        userls[0].newmsg = 0
         context.commit('ChooserUser', userls)
 
     }
@@ -46,13 +52,20 @@ const actions = {
 
 const mutations = {
     SendInfo (state, value) {
-        state.msglist.push(value)
+        state.currentlist.msglist.push(value[0])
+        const userls = state.userlist.filter( (item) => {
+            return item.name === value[1]
+        })
+        userls[0].msgList.push(value[0])
     },
     ChooserUser (state, userls) {
-        // state.msglist.clear()
-        userls.forEach((item) => {
-            state.msglist.push(item)
+        state.currentlist.msglist.splice(0,state.currentlist.msglist.length)
+        // console.log(userls[0].msgList)
+        userls[0].msgList.forEach((item) => {
+            // console.log(item)
+            state.currentlist.msglist.push(item)
         })
+        state.currentlist.username = userls[0].name
     }
 }
 

@@ -1,7 +1,7 @@
 <template>
     <div class="rightarea">
         <div class="right-header">
-            <h4>Chat user</h4>
+            <h4>{{currentlist.username}}</h4>
         </div>
         <div class="msg-content">
             <div class="message my-msg">
@@ -10,7 +10,7 @@
             <div class="message font-msg">
                 <p>ok, im fine! tanks very much, you are welcome aaaaaaaaaaaaaaaaaaaaaaaaaa<br><span>12:30</span></p>
             </div>
-            <div v-for="(infos,index) in msglist" :key="index"
+            <div v-for="(infos,index) in currentlist.msglist" :key="index"
                  :class="['message', infos.from? 'font-msg' : 'my-msg']">
                 <p>{{infos.content}}<br> <span>{{infos.time}}</span></p>
             </div>
@@ -29,21 +29,42 @@
     import { mapState } from 'vuex'
     export default {
         name: 'MsgList',
+        props: ['sessionInfoList'],
         data () {
             return {
-                inputmsg: ''
+                inputmsg: '',
             }
         },
         methods: {
             sendmsg () {
-                this.$store.dispatch('info/sendinfo', this.inputmsg)
+                // console.log(this.$store.state.info.username)
+                this.$store.dispatch('info/sendinfo', [this.inputmsg, this.$store.state.info.currentlist.username])
                 this.inputmsg = ''
+            },
+            clearmsg () {
+                this.$bus.$emit('saveUserMsg', [this.$store.state.info.currentlist.username,this.inputmsg])
+                this.inputmsg = ''
+            },
+            getuserinbputmsg () {
+                if ( this.sessionInfoList.has(this.$store.state.info.currentlist.username)) {
+                    this.inputmsg = this.sessionInfoList.get(this.$store.state.info.currentlist.username)
+                } else {
+                    this.inputmsg = ''
+                }
             }
         },
         computed: {
             ...mapState({
-                msglist: state => state.info.msglist
+                currentlist: state => state.info.currentlist,
             }),
+        },
+        mounted() {
+            this.$bus.$on('clearMsg', this.clearmsg)
+            this.$bus.$on('getUserInputMsg', this.getuserinbputmsg)
+        },
+        beforeDestroy() {
+            this.$bus.$off('clearMsg')
+            this.$bus.$off('getUserInputMsg')
         }
     }
 </script>
